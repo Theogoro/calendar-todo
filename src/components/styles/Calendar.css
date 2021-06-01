@@ -1,0 +1,35 @@
+@import "./indicators.css";
+@import "./calendar-header.css";
+@import "./day.css";
+
+.calendar {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 1em;
+  background-color: white;
+  overflow: hidden;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0.5em;
+  user-select: none;
+}
+
+.days__wrapper {
+  min-height: 550px;
+}
+
+.days__wrapper,
+.days-name__wrapper {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.days-name__wrapper {
+  border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+}
+
+@media only screen and (min-width: 1000px) {
+  .calendar {
+    max-width: none;
+    margin: 0;
+  }
+}

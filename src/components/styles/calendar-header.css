@@ -1,0 +1,55 @@
+.calendar-header {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 2fr 1fr;
+  align-items: center;
+}
+
+.calendar-header button {
+  border: none;
+  background: transparent;
+  grid-row: span 2;
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: monospace;
+}
+
+.calendar-header p {
+  text-align: center;
+  margin: 0;
+}
+
+.calendar-month {
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+.calendar-year {
+  color: rgba(0, 0, 0, 0.5);
+  grid-column-start: 2;
+}
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  min-width: 80px;
+  opacity: 0;
+  transition: 0.5s;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 6px;
+  font-size: 12px;
+  position: absolute;
+  left: 40%;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
