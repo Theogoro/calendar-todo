@@ -1,20 +1,9 @@
 import React, { useState } from "react";
 import AddTask from "./AddTask";
 import "./styles/ListTasks.css";
+import Task from "./Task";
 
 export default function ListTasks(props) {
-  const removeHandler = (event) => {
-    props.tasksManager.removeTask(
-      event.target.parentNode.parentNode.dataset["id"]
-    );
-  };
-
-  const toggleStatus = (event) => {
-    props.tasksManager.toggleStatus(
-      event.target.parentNode.parentNode.dataset["id"]
-    );
-  };
-
   const [showModal, setShowModal] = useState(false);
 
   const showAddTaskModal = () => {
@@ -43,29 +32,18 @@ export default function ListTasks(props) {
         </button>
       </div>
       {props.tasks.length === 0 && <p className="no-tasks card">No tasks 🤔</p>}
-      {/* TODO: llevar a otro elemento */}
       <ul className="tasks__wrapper">
         {props.tasks.map((e) => (
-          <li
-            className={"task card " + (e.status ? "task--done" : "")}
+          <Task
+            id={e.id}
             key={e.id}
-            data-id={e.id}
-          >
-            <h3>{e.name}</h3>
-            <p>{e.description}</p>
-            <time>Date: {e.date.toISODate()}</time>
-            <footer>
-              <button
-                className={"task-btn " + (e.status ? "complete" : "incomplete")}
-                onClick={toggleStatus}
-              >
-                Mark as {e.status ? "pending" : "done"}
-              </button>
-              <button className="task-btn remove" onClick={removeHandler}>
-                Remove
-              </button>
-            </footer>
-          </li>
+            status={e.status}
+            name={e.name}
+            description={e.description}
+            date={e.date}
+            toggle={props.tasksManager.toggleStatus}
+            remove={props.tasksManager.removeTask}
+          />
         ))}
       </ul>
       {showModal && (

@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import CalendarElement from "./CalendarElement";
 import "./styles/Calendar.css";
 
@@ -28,53 +28,6 @@ function Calendar(props) {
       day: 1,
     })
   );
-
-  let days = updateDays();
-
-  function updateDays() {
-    // TODO: Implementar array(n) para evitar waring de useEffect
-
-    const days = [];
-
-    for (let i = 1; i <= date.daysInMonth; i++) {
-      let styles = {};
-
-      if (i === 1) {
-        styles = {
-          gridColumnStart: date.weekday,
-        };
-      }
-
-      const dayDate = DateTime.fromObject({
-        year: date.year,
-        month: date.month,
-        day: i,
-      });
-
-      days.push(
-        <CalendarElement
-          key={dayDate.day}
-          styles={styles}
-          date={dayDate}
-          dayInWeek={dayDate.weekday}
-          today={
-            dayDate.year === DateTime.now().year &&
-            dayDate.month === DateTime.now().month &&
-            dayDate.day === DateTime.now().day
-          }
-          tasks={props.tasks.filter(
-            (task) => dayDate.toISODate() === task.date.toISODate()
-          )}
-        />
-      );
-    }
-    return days;
-  }
-
-  //  Update after change date
-  useEffect(() => {
-    days = updateDays();
-  });
 
   const addMonth = () => {
     setDate(date.plus({ months: 1 }));
@@ -105,7 +58,43 @@ function Calendar(props) {
           </p>
         ))}
       </div>
-      <div className="days__wrapper">{days}</div>
+      <div className="days__wrapper">
+        {Array(date.daysInMonth)
+          .fill()
+          .map((e, index) => {
+            let styles = {};
+
+            if (index === 0) {
+              styles = {
+                gridColumnStart: date.weekday,
+              };
+            }
+
+            const dayDate = DateTime.fromObject({
+              year: date.year,
+              month: date.month,
+              day: index + 1,
+            });
+
+            return (
+              <CalendarElement
+                key={index}
+                styles={styles}
+                date={dayDate}
+                dayInWeek={dayDate.weekday}
+                today={
+                  dayDate.year === DateTime.now().year &&
+                  dayDate.month === DateTime.now().month &&
+                  dayDate.day === DateTime.now().day
+                }
+                tasks={props.tasks.filter(
+                  (task) => dayDate.toISODate() === task.date.toISODate()
+                )}
+                addHandler={props.tasksManager.addTask}
+              />
+            );
+          })}
+      </div>
     </div>
   );
 }

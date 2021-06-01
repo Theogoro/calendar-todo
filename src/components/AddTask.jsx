@@ -3,14 +3,15 @@ import { DateTime } from "luxon";
 import "./styles/AddTask.css";
 
 export default function AddTask(props) {
-  let dateValue = props.date || undefined;
-  const [date, setDate] = useState(DateTime.fromISO(dateValue));
+  const [date, setDate] = useState(DateTime.fromISO(props.date || undefined));
   const noModalRef = useRef();
   const datepickerRef = useRef();
   const cancelBtnRef = useRef();
 
   const nameRef = useRef();
   const descriptionRef = useRef();
+
+  console.log();
 
   const hide = (event) => {
     if (
@@ -52,6 +53,7 @@ export default function AddTask(props) {
               setDate(DateTime.fromISO(datepickerRef.current.value))
             }
             ref={datepickerRef}
+            value={date.toISODate()}
           />
           <label htmlFor="task-description">📖 Description</label>
           <textarea
@@ -59,7 +61,6 @@ export default function AddTask(props) {
             id="task-description"
             ref={descriptionRef}
           />
-          {/* <p>{`La fecha seleccionada es: ${date.toISODate()}`}</p> */}
           <footer>
             <button className="add-task-btn incomplete" onClick={addHandler}>
               Add
