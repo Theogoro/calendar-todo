@@ -30,7 +30,11 @@ function CalendarElement(props) {
       </p>
 
       {props.tasks.filter((e) => !e.status).length > 0 && (
-        <div className="day-tasks" />
+        <div className="day-tasks">
+          {props.tasks.map((e) => (
+            <p>{e.name}</p>
+          ))}
+        </div>
       )}
       {showModal && (
         <AddTask

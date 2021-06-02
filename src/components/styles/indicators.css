@@ -22,13 +22,37 @@
 
 /* Tasks indicator */
 .day .day-tasks {
-  position: absolute;
-  bottom: 8px;
-  right: 20px;
-  border-radius: 50%;
-  background-color: #f4a9a8;
-  color: white;
-  height: 10px;
-  width: 10px;
-  z-index: 2;
+  margin-left: 6px;
+  margin-top: 4px;
+  border-left: 2px solid #f4a9a8;
+  padding-left: 2px;
+}
+
+.day .day-tasks p {
+  margin: 0 0 0 5px;
+}
+
+.day .day-tasks p::after {
+  content: ".";
+}
+
+@media only screen and (max-width: 700px) {
+  .day .day-tasks {
+    margin: 0;
+    position: absolute;
+    bottom: 8px;
+    right: 20px;
+    border-radius: 50%;
+    background-color: #f4a9a8;
+    height: 10px;
+    width: 10px;
+    z-index: 2;
+    border: none;
+  }
+
+  .day .day-tasks p,
+  .day .day-tasks p::after {
+    display: none;
+    margin: 0;
+  }
 }
